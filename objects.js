@@ -2877,7 +2877,7 @@ SpriteMorph.prototype.reporterize = function (expressionString) {
             inps[0].setContents([key]);
             off = 0;
         } else { // The function or operator has its own block
-            block = SpriteMorph.prototype.blockForSelector(selectors[key]);
+            block = SpriteMorph.prototype.blockForSelector(selectors[key] || key);
             inps = block.inputs();
         }
         // Set the inputs to the block
