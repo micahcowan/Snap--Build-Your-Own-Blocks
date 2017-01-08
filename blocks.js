@@ -150,7 +150,7 @@ CustomCommandBlockMorph*/
 
 // Global stuff ////////////////////////////////////////////////////////
 
-modules.blocks = '2017-January-05';
+modules.blocks = '2017-January-08';
 
 var SyntaxElementMorph;
 var BlockMorph;
@@ -668,7 +668,7 @@ SyntaxElementMorph.prototype.refactorVarInStack = function (oldName, newName, is
     // Rename all oldName var occurrences found in this block stack into newName
     // taking care of not being too greedy
 
-    if (this instanceof RingMorph
+    if ((this instanceof RingMorph && contains(this.inputNames(), oldName))
             || (!isScriptVar && this.definesScriptVariable(oldName))) {
         return;
     }
@@ -7843,7 +7843,8 @@ InputSlotMorph.prototype.menuFromDict = function (choices, noEmptyOption) {
             // } else if (key.indexOf('§_def') === 0) {
             //     menu.addItem(choices[key].blockInstance(), choices[key]);
             } else if (choices[key] instanceof Object &&
-                    !(choices[key] instanceof Array)) {
+                    !(choices[key] instanceof Array) &&
+                    (typeof choices[key] !== 'function')) {
                 menu.addMenu(key, this.menuFromDict(choices[key], true));
             } else {
                 menu.addItem(key, choices[key]);
