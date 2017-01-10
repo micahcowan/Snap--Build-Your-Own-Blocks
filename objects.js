@@ -82,7 +82,7 @@ SpeechBubbleMorph, RingMorph, isNil, FileReader, TableDialogMorph,
 BlockEditorMorph, BlockDialogMorph, PrototypeHatBlockMorph, localize,
 TableMorph, TableFrameMorph, normalizeCanvas, BooleanSlotMorph*/
 
-modules.objects = '2017-January-04';
+modules.objects = '2017-January-09';
 
 var SpriteMorph;
 var StageMorph;
@@ -3308,12 +3308,15 @@ SpriteMorph.prototype.comeToFront = function () {
 };
 
 SpriteMorph.prototype.goBack = function (layers) {
-    var layer, newLayer = +layers || 0;
+    var layer,
+        newLayer = +layers,
+        targetLayer;
+
     if (!this.parent) {return null; }
     layer = this.parent.children.indexOf(this);
-    if (layer < newLayer) {return null; }
     this.parent.removeChild(this);
-    this.parent.children.splice(layer - newLayer, null, this);
+    targetLayer = Math.max(layer - newLayer, 0);
+    this.parent.children.splice(targetLayer, null, this);
     this.parent.changed();
 };
 
